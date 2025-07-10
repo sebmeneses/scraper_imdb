@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: imdb_user
+      POSTGRES_PASSWORD: imdb_password
+      POSTGRES_DB: imdb_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data/postgres_data:/var/lib/postgresql/data
