@@ -1,0 +1,23 @@
+# Entorno virtual
+imdb-env/
+
+# Caché de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de logs
+logs/
+*.log
+
+# Archivos temporales del sistema
+*.swp
+*.swo
+.DS_Store
+
+# Bases de datos locales
+*.db
+
+# Archivos de configuración local (opcional)
+.env
