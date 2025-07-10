@@ -66,6 +66,7 @@ Este mecanismo permite que el scraper **siga intentando con nuevas IPs proporcio
 ---
 ### Desventajas
 - Se requiere el navegador instalado y abierto para usar el puerto 9150.
+-  Es un metodo ocasional y en caso de despligue en la nube es mejor usar proxys de pago.
 
 ## Resultado
 
