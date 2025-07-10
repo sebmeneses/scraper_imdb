@@ -103,3 +103,34 @@ Para lenvantar la bd se usa el comando docker-compose up --build -d    y si se d
 - Posteriomente levantar la bd de postgres con docker-compose up -build -d. 
 - Posteriomente abrir TOR. 
 - y Desde el entorno activo ejecutar main.py
+
+### Comparación Técnica: Implementación alternativa con Selenium o Playwright
+
+Aunque el scraper actual fue construido utilizando `requests`, `BeautifulSoup` y manejo de proxies con Tor, en escenarios más complejos podría ser beneficioso usar herramientas como **Selenium** o **Playwright**, especialmente cuando se necesita interactuar con contenido generado por JavaScript o superar bloqueos automáticos más sofisticados.
+
+---
+### Cómo se implementaría con Playwright o Selenium
+
+#### Configuración avanzada del navegador
+- Inicialmente para evitar problemas de consumo de memoria activar el **Modo headless o invisible**.
+- Personalización de **user-agent**, idioma, tamaño de pantalla, y otros headers.
+- Técnicas de **evasión de detección WebDriver**:
+- En Selenium: deshabilitar extensiones, ocultar variables como `navigator.webdriver`.
+- En Playwright: viene con evasión por defecto en muchos escenarios.
+-  Se busca en el html los frames espeficicos y si  la informacion esta anidada, para extraerla. 
+---
+#### Selectores dinámicos y esperas explícitas
+- Uso de métodos como `WebDriverWait` (Selenium) o `page.wait_for_selector` (Playwright), permite interactuar con elementos que cargan asíncronamente (desplegables, modales, etc.),  esto mejora la robustez del scraper ante cambios en la estructura DOM.
+---
+#### Manejo de CAPTCHA o JavaScript rendering
+- Herramientas como Playwright permiten **capturar captchas**, tomar capturas de pantalla o resolver ciertos retos visuales mediante servicios externos como 2catpcha, ademas el Javascript Rendering es ultil en escenarios donde la información no está en el HTML inicial.
+--
+#### Control de concurrencia (workers / colas)
+- Se puede lanzar múltiples instancias del navegador en paralelo usando asyncio en  playwright y ThreadPoolExecutor  o  multiprocessing en Selenium, esto permite scrapear múltiples páginas al mismo tiempo, mejorando los tiempos de los procesos.
+
+---
+###  ¿Por qué no usar Scrapy?
+
+**Scrapy** es un herramienta que funciona bastante bien, con sitios con HTML estático o estructurado de forma consistente, pero tiene limitaciones como:
+- No renderiza JavaScript nativamente (se requiere de integración con Playwright para superar este problema).
+- Menor control directo sobre navegación dinámica o acciones del navegador (scrolls, clicks, etc.).
